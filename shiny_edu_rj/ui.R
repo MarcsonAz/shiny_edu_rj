@@ -11,36 +11,27 @@ library(shiny)
 library(bslib)
 
 # Define UI for application that draws a histogram
-page_fluid(
+page_two <- page_fluid(
 
-  # Application title
-  titlePanel("Funrio equipe"),
+  # Título do aplicativo
+  titlePanel("Explorador de Dados de Candidatos"),
+  
+  # Input para seleção do arquivo
+  fileInput("file1", "Escolha um arquivo Excel",
+            multiple = FALSE,
+            accept = c(".xlsx")),
+  
+  # Saída para mostrar os dados
+  tableOutput("contents")
+)
 
-  layout_columns(
-    col_width = 3,
-    card(
-      card_header("Buttons"),
-      sliderInput(
-        inputId = "bins",
-        label = "Number of bins:",
-        min = 1,
-        max = 50,
-        value = 30
-      )
-    ),
-    card(
-      card_header("Single checkbox"),
-      checkboxInput("checkbox", "Choice A", value = TRUE)
-    ),
-    card(
-      card_header("Checkbox group"),
-      checkboxGroupInput(
-        "checkGroup",
-        "Select all that apply",
-        choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-        selected = 1
-      )
-    )
-  ),
-  plotOutput(outputId = "distPlot")
+ui <- page_navbar(
+  id = "page",
+  title = "My App",
+  bg = "#2D89C8",
+  inverse = TRUE,
+  nav_panel(title = "One", p("First page content.")),
+  nav_panel(title = "Two", page_two),
+  nav_panel(title = "Three", p("Third page content.")),
+  nav_spacer()
 )
